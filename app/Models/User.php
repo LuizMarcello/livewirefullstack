@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /* Relacionamento "um-para-muitos" */
+    /* Um usuário pode ter muitos tweets, e um tweet
+       só pertence a um usuário */
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class);
+    }
 }
