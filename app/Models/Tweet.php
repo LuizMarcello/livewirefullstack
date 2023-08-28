@@ -9,7 +9,7 @@ class Tweet extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['content'];
+    protected $fillable = ['content', 'user_id'];
 
     /* Relacionamento de "muitos-para-um" */
     /* Vários tweets podem pertencer a um só usuário */
