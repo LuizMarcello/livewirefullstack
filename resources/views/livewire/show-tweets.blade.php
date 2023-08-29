@@ -1,16 +1,20 @@
 <div>
-     Show Tweets
+    Show Tweets
 
     {{-- Imprimindo esta propriedade, do controller "ShowTweets" --}}
-    <p>{{ $message }}</p>
+    <p>{{ $content }}</p>
 
-    {{-- Fazendo um bind(de mão-dupla) do conteúdo deste input, com a propriedade "$message,
+    {{-- Fazendo um bind(de mão-dupla) do conteúdo deste input, com a propriedade "$content,
          do controller ShowTweets" --}}
     {{-- wire:submit.prevent: Enviando o conteúdo do input para o método "create()"
          do controller "ShowTweets" --}}
     <form method="post" wire:submit.prevent="create">
         @method('GET')
-        <input type="text" name="message" id="message" wire:model="message">
+        <input type="text" name="content" id="content" wire:model="content">
+        {{-- Mensagem de êrro, se existir algum êrro de validação --}}
+        @error('content')
+            {{ $message }}
+        @enderror
         <button type="submit">Criar Tweet</button>
         <br>
         <br>
