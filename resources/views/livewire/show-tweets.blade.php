@@ -26,4 +26,10 @@
          "Tweet.php", que é proprietário do "tweet" --}}
         {{ $tweet->user->name }} - {{ $tweet->content }} <br>
     @endforeach
+
+    <hr>
+    {{-- Para fazer a paginação --}}
+    <div>
+        {{ $tweets->links() }}
+    </div>
 </div>

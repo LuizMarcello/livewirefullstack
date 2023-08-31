@@ -4,9 +4,13 @@ namespace App\Http\Livewire;
 
 use App\Models\Tweet;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ShowTweets extends Component
 {
+    /* Para evitar de fazer o reload das páginas */
+    use WithPagination;
+
     public $content = 'Apenas um teste';
 
     protected $rules = [
@@ -17,7 +21,7 @@ class ShowTweets extends Component
     {
         /* with(): Qual relacionamento(o tweet com seu proprietário)
            estará usando, senão, para cada tweet, faria uma pesquisa no bd */
-        $tweets = Tweet::with('user')->get();
+        $tweets = Tweet::with('user')->paginate(2);
 
         //return view('livewire.show-tweets', compact('tweetsss'));
         //ou assim, usando um array
