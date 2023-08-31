@@ -58,4 +58,11 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /* Relacionamento de "um-para-muitos" */
+    /* Um usuário pode ter vários tweets */
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class);
+    }
 }

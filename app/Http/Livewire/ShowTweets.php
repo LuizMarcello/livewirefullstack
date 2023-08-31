@@ -21,7 +21,9 @@ class ShowTweets extends Component
     {
         /* with(): Qual relacionamento(o tweet com seu proprietário)
            estará usando, senão, para cada tweet, faria uma pesquisa no bd */
-        $tweets = Tweet::with('user')->paginate(2);
+        /* latest(): Inverte a ordem de listar os tweets,
+           últimos e primeiros */
+        $tweets = Tweet::with('user')->latest()->paginate(5);
 
         //return view('livewire.show-tweets', compact('tweetsss'));
         //ou assim, usando um array
@@ -30,14 +32,18 @@ class ShowTweets extends Component
         ]);
     }
 
+    /* Criando um tweet com o usuário autenticado */
     public function create()
     {
         $this->validate();
 
-        Tweet::create([
-            'content' => $this->content,
-            'user_id' => 1
-        ]);
+            /* Pegando o usuário autenticado */
+            /* tweets(): Relacionamento de um-para-muitos,
+               pego do model "User.php" */
+            auth()->user()->tweets()->create([
+                'content' => $this->content,
+            ]);
+
 
         /* Limpando o valor da variável "content" */
         $this->content = '';
