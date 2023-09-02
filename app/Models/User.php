@@ -65,4 +65,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tweet::class);
     }
+
+    /* Relacionamento de "um-para-muitos" */
+    /* Um usuário pode ter vários likes */
+    /* Por aqui, pega quais tweets o usuário curtiu */
+    public function likes()
+    {
+    return $this->hasMany(Like::class);
+    }
 }

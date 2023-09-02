@@ -43,9 +43,28 @@ class ShowTweets extends Component
             auth()->user()->tweets()->create([
                 'content' => $this->content,
             ]);
-
-
         /* Limpando o valor da variável "content" */
         $this->content = '';
     }
+
+    /* Trazendo o id do tweet que foi curtido */
+    public function like($idTweet)
+    {
+        /* Agora temos um objeto do tweet curtido */
+        $tweet = Tweet::find($idTweet);
+
+        $tweet->likes()->create([
+            /* Pegando o "user_id" do usuário autenticado */
+            /* auth(): Um helper do php */
+            'user_id' => auth()->user()->id
+        ]);
+    }
+
+     /* Trazendo o id do tweet que foi descurtido */
+     /* Usando o "model bind", que é injetar
+        aqui, uma instância do model "Tweet". */
+     public function unlike(Tweet $tweet)
+     {
+         $tweet->likes()->delete();
+     }
 }

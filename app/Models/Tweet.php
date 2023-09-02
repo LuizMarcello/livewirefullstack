@@ -18,4 +18,23 @@ class Tweet extends Model
         return $this->belongsTo(User::class);
     }
 
+    /* Relacionamento de "muitos-para-muitos" */
+    /* Vários tweets podem ter vários likes */
+    /* Retornando somente as curtidas do usuário autenticado */
+    public function likes()
+    {
+       return $this->hasMany(Like::class)
+                         /* Aplicando o filtro condicionalmente, caso
+                            o usuário esteja autenticado */
+                            /* Função de callback */
+                        ->where(function ($query) {
+                            /* Checando se o usuário está autenticado */
+                            if (auth()->check()) {
+                                /* Assim, só vai retornar quando o "user_id" de quem curtiu,
+                                for igual ao usuário autenticado */
+                                $query->where('user_id', auth()->user()->id);
+                            }
+                        });
+    }
+
 }

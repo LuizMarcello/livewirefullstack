@@ -24,9 +24,23 @@
     @foreach ($tweets as $tweet)
         {{-- Esse "user" vem do relacionamento "muitos-para-um", do model
          "Tweet.php", que é proprietário do "tweet" --}}
-        {{ $tweet->user->name }} - {{ $tweet->content }} <br>
+        {{ $tweet->user->name }} - {{ $tweet->content }}
+        {{-- Pegando todas as curtidas que este tweet teve --}}
+        @if ($tweet->likes->count())
+            {{-- Fazendo aqui, a "ação" de descurtir--}}
+            {{-- wire: Escuta os eventos(click, no caso) --}}
+            {{-- unlike(): Lá do ShowTweets.php(Componente) --}}
+            {{-- {{ }}: Blade --}}
+            <a href="#" wire:click.prevent="unlike({{ $tweet->id }})">Descurtir</a>
+        @else
+            {{-- Fazendo aqui, a "ação" de curtir--}}
+            {{-- wire: Escuta os eventos(click, no caso) --}}
+            {{-- like(): Lá do ShowTweets.php(Componente) --}}
+            {{-- {{ }}: Blade --}}
+            <a href="#" wire:click.prevent="like({{ $tweet->id }})">Curtir</a>
+        @endif
+        <br>
     @endforeach
-
     <hr>
     {{-- Para fazer a paginação --}}
     <div>
