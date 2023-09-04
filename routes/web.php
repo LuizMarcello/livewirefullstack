@@ -5,7 +5,16 @@ use App\Http\Livewire\{
     ShowTweets
 };
 
-Route::get('tweets', ShowTweets::class)->middleware('auth');
+use App\Http\Livewire\User\{
+    UploadPhoto
+};
+
+Route::get('/upload', UploadPhoto::class)
+            ->name('upload.photo.user');
+
+Route::get('/tweets', ShowTweets::class)
+            ->name('tweets.index')
+            ->middleware('auth');
 
 Route::get('/', function () {
     return view('welcome');
